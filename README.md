@@ -1,70 +1,133 @@
-# Deuze-Cakes
+# Deuze Cakes - Monorepo
 
-## Visão Geral
-
-Deuze-Cakes é um projeto fullstack para uma loja de bolos, desenvolvido como um portfólio funcional. O objetivo é construir uma interface de usuário responsiva e moderna que represente a identidade visual e os produtos da empresa.
-
-## Tecnologias Utilizadas
-
-O projeto foi iniciado com ferramentas e bibliotecas padrão para construir aplicações web modernas:
-
-- React para construção da interface de usuário.
-- Vite como ferramenta de desenvolvimento e build.
-- Tailwind CSS para estilização utilitária.
-- Estrutura de arquivos organizada em pastas públicas e fontes.
+Um monorepo moderno para a aplicação Deuze Cakes, com frontend React + Vite e backend NestJS.
 
 ## Estrutura do Projeto
 
-Os principais diretórios e arquivos do projeto são:
+```
+deuze-cakes/
+├─ apps/                    # Aplicações
+│  ├─ web/                  # FRONTEND (React + Vite)
+│  │  ├─ src/
+│  │  │  ├─ assets/
+│  │  │  ├─ components/
+│  │  │  │  ├─ layout/
+│  │  │  │  │  ├─ Header.tsx
+│  │  │  │  │  └─ Footer.tsx
+│  │  │  │  ├─ ui/           # shadcn/ui
+│  │  │  │  ├─ cake/
+│  │  │  │  │  └─ CakeCard.tsx
+│  │  │  ├─ pages/
+│  │  │  │  ├─ Home.tsx
+│  │  │  │  ├─ Cakes.tsx
+│  │  │  │  ├─ CakeDetails.tsx
+│  │  │  │  ├─ Cart.tsx
+│  │  │  │  └─ Checkout.tsx
+│  │  │  ├─ hooks/
+│  │  │  ├─ services/
+│  │  │  │  └─ api.ts
+│  │  │  ├─ store/           # Zustand / Redux
+│  │  │  ├─ types/
+│  │  │  ├─ styles/
+│  │  │  ├─ App.tsx
+│  │  │  └─ main.tsx
+│  │  ├─ index.html
+│  │  ├─ vite.config.ts
+│  │  ├─ tailwind.config.ts
+│  │  └─ package.json
+│  │
+│  ├─ api/                  # BACKEND (NestJS)
+│  │  ├─ src/
+│  │  │  ├─ app.module.ts
+│  │  │  ├─ main.ts
+│  │  │  ├─ prisma/
+│  │  │  ├─ common/
+│  │  │  ├─ auth/
+│  │  │  ├─ users/
+│  │  │  ├─ cakes/
+│  │  │  ├─ categories/
+│  │  │  ├─ orders/
+│  │  │  ├─ payments/
+│  │  │  └─ uploads/
+│  │  ├─ prisma/
+│  │  │  ├─ schema.prisma
+│  │  │  └─ seed.ts
+│  │  ├─ test/
+│  │  ├─ Dockerfile
+│  │  └─ nest-cli.json
+│  │
+├─ packages/                # Código compartilhado
+│  ├─ shared-types/         # Types entre front e back
+│  │  ├─ cake.ts
+│  │  ├─ category.ts
+│  │  ├─ order.ts
+│  │  └─ user.ts
+│  │
+│  └─ config/               # ESLint, TS, Prettier
+│
+├─ infra/                   # Infraestrutura
+│  ├─ docker-compose.yml
+│  ├─ nginx/
+│  │  └─ nginx.conf
+│  └─ scripts/
+│
+├─ .env
+├─ package.json
+├─ tsconfig.json
+└─ README.md
+```
 
-Deuze-Cakes/
-├── public/ # Recursos públicos estáticos
-├── src/ # Código-fonte da aplicação
-├── .gitignore # Arquivos ignorados pelo Git
-├── LICENSE # Licença MIT
-├── package.json # Dependências e scripts
-├── postcss.config.cjs # Configuração do PostCSS
-├── tailwind.config.cjs # Configuração do Tailwind CSS
-├── vite.config.js # Configuração do Vite
+## Quick Start
 
+### Instalação
 
-## Instalação
-
-Para executar o projeto localmente, siga os passos:
-
-1. Clone o repositório:
-
-git clone https://github.com/robertoHenriq/Deuze-Cakes.git
-
-
-2. Acesse o diretório do projeto:
-
-cd Deuze-Cakes
-
-
-3. Instale as dependências com o npm:
-
+```bash
 npm install
+```
 
+### Desenvolvimento
 
-## Execução
+```bash
+# Frontend
+npm run start:web
 
-Para iniciar o ambiente de desenvolvimento:
+# Backend
+npm run start:api
 
+# Ambos (em paralelo)
 npm run dev
+```
 
+### Build
 
-Este comando abre o servidor de desenvolvimento com *hot reload*, permitindo visualizar alterações em tempo real.
+```bash
+npm run build
+```
 
-## Scripts Disponíveis
+## Workspaces
 
-| Comando            | Descrição                                           |
-|--------------------|-----------------------------------------------------|
-| `npm run dev`      | Inicia o servidor de desenvolvimento (Vite).        |
-| `npm run build`    | Gera a versão de produção otimizada da aplicação.   |
-| `npm run preview`  | Pré-visualiza o build de produção localmente.       |
+Este projeto usa NPM Workspaces. Cada aplicação e pacote pode ter suas próprias dependências.
+
+- **apps/web**: Frontend React com Vite
+- **apps/api**: Backend NestJS
+- **packages/shared-types**: Tipos compartilhados TypeScript
+- **packages/config**: Configurações compartilhadas (ESLint, Prettier)
+
+## Docker
+
+Para executar com Docker:
+
+```bash
+docker-compose -f infra/docker-compose.yml up
+```
+
+## Contribuindo
+
+1. Crie uma branch para sua feature: `git checkout -b feature/minha-feature`
+2. Commit suas mudanças: `git commit -m 'Add minha-feature'`
+3. Push para a branch: `git push origin feature/minha-feature`
+4. Abra um Pull Request
 
 ## Licença
 
-O projeto é distribuído sob a **licença MIT**.  
-Consulte o arquivo `LICENSE` para mais detalhes.
+MIT
