@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Deuze-Cakes é um projeto front-end para uma loja de bolos, desenvolvido como um portfólio funcional. O objetivo é construir uma interface de usuário responsiva e moderna que represente a identidade visual e os produtos de uma confeitaria.
+Deuze-Cakes é um projeto fullstack para uma loja de bolos, desenvolvido como um portfólio funcional. O objetivo é construir uma interface de usuário responsiva e moderna que represente a identidade visual e os produtos da empresa.
 
 ## Tecnologias Utilizadas
 
