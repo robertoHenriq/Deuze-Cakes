@@ -119,6 +119,8 @@ Para executar com Docker:
 
 ```bash
 docker-compose -f infra/docker-compose.yml up
+
+docker-compose up -d
 ```
 
 ## Contribuindo
