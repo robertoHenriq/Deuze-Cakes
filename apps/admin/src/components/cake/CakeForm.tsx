@@ -36,11 +36,12 @@ export function CakeForm({ onCreated }: CakeFormProps) {
       formData.append("name", name);
       formData.append("description", description);
       formData.append("price", price);
+      formData.append("categoryId", "1");
       if (image) {
         formData.append("image", image);
       }
 
-      await api.post("/cakes/admin", formData, {
+      await api.post("/admin/cakes", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

@@ -1,12 +1,9 @@
 FROM node:18-alpine
 WORKDIR /app
-
-# Install dependencies
-COPY package.json package-lock.json* ./
-RUN npm install --production
-
-# Copy source
+COPY package*.json ./
+RUN npm ci
 COPY . .
-
-EXPOSE 3000
-CMD ["npm", "run", "start:dev"]
+RUN npx prisma generate
+RUN npm run build
+EXPOSE 3333
+CMD ["node", "dist/main.js"]

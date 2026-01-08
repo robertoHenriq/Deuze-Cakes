@@ -1,26 +1,35 @@
 {
-  "name": "deuze-cakes",
-  "version": "1.0.0",
-  "private": true,
-  "description": "Deuze Cakes - Monorepo for Frontend and Backend",
-  "workspaces": [
-    "apps/web",
-    "apps/api",
-    "apps/admin",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspace=apps/web && npm run build --workspace=apps/api",
-    "start": "npm start --workspace=apps/api",
-    "start:web": "npm run dev --workspace=apps/web",
-    "start:api": "npm start --workspace=apps/api"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
-    "eslint": "^8.55.0",
-    "prettier": "^3.1.0",
-    "typescript": "^5.3.3"
-  }
+  "name": "deuze-cakes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deuze Cakes - Monorepo for Frontend and Backend",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "apps/admin",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web && npm run build --workspace=apps/api",
+    "start": "npm start --workspace=apps/api",
+    "start:web": "npm run dev --workspace=apps/web",
+    "start:api": "npm start --workspace=apps/api"
+  },
+  "devDependencies": {
+    "@types/multer": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/swagger": "^7.4.2",
+    "bcrypt": "^6.0.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "passport-jwt": "^4.0.1"
+  }
 }

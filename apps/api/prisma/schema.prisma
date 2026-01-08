@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 enum Role {
@@ -16,37 +16,61 @@ enum OrderStatus {
   PENDING
   PAID
   CANCELLED
+  FULFILLED
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  role      Role     @default(USER)
-  createdAt DateTime @default(now())
-  orders    Order[]
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  password     String
+  name         String?
+  role         Role         @default(USER)
+  refreshToken String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  orders       Order[]
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  cakes Cake[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  cakes     Cake[]
 }
 
 model Cake {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
+  sku         String      @unique @default(cuid())
   name        String
-  description String   @default("")
-  priceCents  Int
+  description String?
+  priceCents   Int
+  active      Boolean     @default(true)
   imageUrl    String?
   categoryId  Int
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category    @relation(fields: [categoryId], references: [id])
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id         Int   @id @default(autoincrement())
+  cakeId     Int
+  cake       Cake  @relation(fields: [cakeId], references: [id])
+  qty        Int
+  priceCents Int
+  orderId    Int
+  order      Order @relation(fields: [orderId], references: [id])
 }
 
 model Order {
   id         Int         @id @default(autoincrement())
   userId     Int
   user       User        @relation(fields: [userId], references: [id])
+  items      OrderItem[]
   totalCents Int
   status     OrderStatus @default(PENDING)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 }

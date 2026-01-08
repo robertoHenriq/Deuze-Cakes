@@ -1,25 +1,33 @@
 import { Module } from '@nestjs/common';
-import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
+import { PrismaModule } from './prisma/prisma.module'; // Verifique se este caminho existe
+import { AuthModule } from './module/auth/auth.module';
+import { UsersModule } from './module/users/users.module';
+import { CakesModule } from './module/cakes/cakes.module';
+import { AdminModule } from './module/admin/admin.module';
+import { CategoriesModule } from './module/categories/categories.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { PrismaModule } from './prisma/prisma.module';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { CakesModule } from './cakes/cakes.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    JwtModule.register({}),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/',
+      rootPath: join(__dirname, '..', '..', 'uploads'), // Ajuste o caminho para a pasta uploads
+      serveRoot: '/uploads',
     }),
-    PrismaModule,
-    UsersModule,
+      ServeStaticModule.forRoot({
+    // Isso busca a pasta uploads na raiz do projeto da API
+    rootPath: join(process.cwd(), 'uploads'), 
+    serveRoot: '/uploads',
+  }),
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule, // Agora o NestJS sabe de onde vem este módulo
     AuthModule,
+    UsersModule,
     CakesModule,
+    AdminModule,
+    CategoriesModule,
+    
   ],
 })
 export class AppModule {}

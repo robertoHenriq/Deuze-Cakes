@@ -1,20 +1,15 @@
-version: '3.8'
 services:
   db:
-    image: postgres:15
+    image: postgres:15-alpine
+    container_name: deuze-postgres
     environment:
-      POSTGRES_DB: deuze
       POSTGRES_USER: deuze
       POSTGRES_PASSWORD: deuze123
+      POSTGRES_DB: deuze
     ports:
-      - 5432:5432
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-  api:
-    build: .
-    environment:
-      DATABASE_URL: postgres://deuze:deuze123@db:5432/deuze
-      JWT_SECRET: supersecret
-    ports:
-      - 3333:3333
-    depends_on:
-      - db
+volumes:
+  postgres_data:

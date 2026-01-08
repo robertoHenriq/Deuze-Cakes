@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
-import { CakeDTO } from "@deuze/shared/types";
+import { CakeDTO } from "../../../../packages/shared-types/cake";
 import { CakeForm } from "@/components/cake/CakeForm";
 
 export function CakesAdmin() {
@@ -26,7 +26,7 @@ export function CakesAdmin() {
 
     setDeletingId(id);
     try {
-      await api.delete(`/cakes/admin/${id}`);
+      await api.delete(`/admin/cakes/${id}`);
       setCakes((prev) => prev.filter((cake) => cake.id !== id));
     } catch (err) {
       setError("Erro ao deletar bolo");
@@ -38,7 +38,7 @@ export function CakesAdmin() {
   useEffect(() => {
     loadCakes();
   }, []);
-
+console.log("Bolos vindos da API:", cakes);
   return (
     <div>
       <CakeForm onCreated={loadCakes} />
@@ -69,12 +69,12 @@ export function CakesAdmin() {
               className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition"
             >
               {cake.imageUrl && (
-                <img
-                  src={cake.imageUrl}
-                  alt={cake.name}
-                  className="w-full h-48 object-cover"
-                />
-              )}
+              <img
+                src={`http://localhost:3333/uploads/${cake.imageUrl}`}
+                alt={cake.name}
+                className="w-full h-48 object-cover"
+              />
+            )}
 
               <div className="p-4">
                 <h3 className="text-lg font-bold text-gray-800 mb-2">
@@ -89,8 +89,9 @@ export function CakesAdmin() {
 
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-pink-600 font-bold text-lg">
-                    R$ {cake.price.toFixed(2)}
-                  </span>
+                  {/* O sinal de interrogação e o || 0 garantem que o código não quebre */}
+                  R$ {(((cake.priceCents || 0) || (cake.price || 0) * 100) / 100).toFixed(2)}
+                </span>
                   {cake.category && (
                     <span className="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full">
                       {cake.category.name}
