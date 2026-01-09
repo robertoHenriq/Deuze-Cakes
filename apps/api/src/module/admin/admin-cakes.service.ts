@@ -11,7 +11,7 @@ constructor(private prisma: PrismaService, private storage: StorageService) {}
 async create(data: { name: string; priceCents: number; categoryId?: number; image?: Express.Multer.File }) {
 let imageUrl: string | undefined;
 if (data.image) {
-imageUrl = await this.storage.uploadFile(data.image);
+imageUrl =  await this.storage.uploadFile(data.image);
 }
 
 
