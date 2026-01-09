@@ -70,7 +70,7 @@ console.log("Bolos vindos da API:", cakes);
             >
               {cake.imageUrl && (
               <img
-                src={`http://localhost:3333/uploads/${cake.imageUrl}`}
+                src={cake.imageUrl}
                 alt={cake.name}
                 className="w-full h-48 object-cover"
               />

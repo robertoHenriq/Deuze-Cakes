@@ -9,11 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StorageService = void 0;
 const common_1 = require("@nestjs/common");
 let StorageService = class StorageService {
-    // Local upload: multer already saved the file to ./uploads
-    // This returns public URL path for the file
     async uploadFile(file) {
-        // multer stored file at ./uploads/<filename>
-        return `/uploads/${file.filename}`;
+        const appUrl = process.env.APP_URL || "http://localhost:3333";
+        return `${appUrl}/uploads/${file.filename}`;
     }
 };
 exports.StorageService = StorageService;

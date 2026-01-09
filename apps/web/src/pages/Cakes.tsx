@@ -57,7 +57,7 @@ export function Cakes() {
         {cakes.length > 0 ? (
           cakes.map((cake) => (
             <CakeCard
-              key={cake.id}
+              
               name={cake.name}
               imageUrl={cake.imageUrl}
             />

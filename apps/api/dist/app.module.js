@@ -29,7 +29,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             serve_static_1.ServeStaticModule.forRoot({
                 // Isso busca a pasta uploads na raiz do projeto da API
-                rootPath: (0, path_1.join)(process.cwd(), 'uploads'),
+                rootPath: (0, path_1.join)(__dirname, '..', 'uploads'),
                 serveRoot: '/uploads',
             }),
             config_1.ConfigModule.forRoot({ isGlobal: true }),
