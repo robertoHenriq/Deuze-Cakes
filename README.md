@@ -88,14 +88,12 @@ npm install
 ### Desenvolvimento
 
 ```bash
-# Frontend
-npm run start:web
+# Frontend e admin
+npm start
 
 # Backend
 npm run start:api
 
-# Ambos (em paralelo)
-npm run dev
 ```
 
 ### Build
