@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "@/services/api";
 
 interface CakeFormProps {
@@ -7,12 +7,21 @@ interface CakeFormProps {
 
 export function CakeForm({ onCreated }: CakeFormProps) {
   const [name, setName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categories, setCategories] = useState<any[]>([]);
+
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+  api.get("/categories")
+    .then((res) => setCategories(res.data))
+    .catch(() => setCategories([]));
+  }, []);
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -32,11 +41,19 @@ export function CakeForm({ onCreated }: CakeFormProps) {
     setLoading(true);
 
     try {
+      if (!categoryId) {
+      setError("Selecione uma categoria");
+      setLoading(false);
+      return;
+      }
+
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
-      formData.append("price", price);
-      formData.append("categoryId", "1");
+      const priceCents = Math.round(Number(price) * 100);
+      formData.append("priceCents", String(priceCents));
+      formData.append("categoryId", categoryId);
+
       if (image) {
         formData.append("image", image);
       }
@@ -46,6 +63,7 @@ export function CakeForm({ onCreated }: CakeFormProps) {
       });
 
       setName("");
+      setCategoryId("");
       setDescription("");
       setPrice("");
       setImage(null);
@@ -56,7 +74,9 @@ export function CakeForm({ onCreated }: CakeFormProps) {
     } finally {
       setLoading(false);
     }
+    
   }
+  
 
   return (
     <form
@@ -87,6 +107,25 @@ export function CakeForm({ onCreated }: CakeFormProps) {
               required
             />
           </div>
+          <div className="mb-4">
+  <label className="block text-sm font-semibold text-gray-700 mb-2">
+    Categoria
+  </label>
+
+      <select
+        className="border-2 border-gray-300 focus:border-pink-600 p-3 w-full rounded-lg focus:outline-none transition"
+        value={categoryId}
+        onChange={(e) => setCategoryId(e.target.value)}
+        required
+      >
+        <option value="">Selecione uma categoria</option>
+        {categories.map((cat) => (
+          <option key={cat.id} value={cat.id}>
+            {cat.name}
+          </option>
+        ))}
+      </select>
+    </div>
 
           <div className="mb-4">
             <label className="block text-sm font-semibold text-gray-700 mb-2">

@@ -24,9 +24,12 @@ let AdminCakesService = class AdminCakesService {
             imageUrl = await this.storage.uploadFile(data.image);
         }
         // simple: if categoryId not provided, pick first
-        const category = data.categoryId ? await this.prisma.category.findUnique({ where: { id: data.categoryId } }) : await this.prisma.category.findFirst();
-        if (!category)
-            throw new common_1.NotFoundException('Category not found');
+        const category = await this.prisma.category.findUnique({
+            where: { id: data.categoryId },
+        });
+        if (!category) {
+            throw new common_1.NotFoundException("Category not found");
+        }
         return this.prisma.cake.create({
             data: { name: data.name, priceCents: data.priceCents, imageUrl, categoryId: category.id },
         });
