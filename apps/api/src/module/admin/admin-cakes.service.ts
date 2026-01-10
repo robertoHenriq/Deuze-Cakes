@@ -6,7 +6,7 @@ import { StorageService } from '../../infra/storage/storage.service';
 @Injectable()
 export class AdminCakesService {
 constructor(private prisma: PrismaService, private storage: StorageService) {}
-
+    
 
 async create(data: { name: string; priceCents: number; categoryId?: number; image?: Express.Multer.File }) {
 let imageUrl: string | undefined;
@@ -27,7 +27,16 @@ data: { name: data.name, priceCents: data.priceCents, imageUrl, categoryId: cate
 
 
 async remove(id: number) {
-await this.prisma.cake.delete({ where: { id } });
-return { ok: true };
+  const cake = await this.prisma.cake.findUnique({ where: { id } });
+  if (!cake) throw new NotFoundException();
+
+  if (cake.imageUrl) {
+    await this.storage.deleteFileByUrl(cake.imageUrl);
+  }
+
+  await this.prisma.cake.delete({ where: { id } });
+
+  return { ok: true };
 }
-}
+
+}   

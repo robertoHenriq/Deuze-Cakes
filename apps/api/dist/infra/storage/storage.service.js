@@ -8,10 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StorageService = void 0;
 const common_1 = require("@nestjs/common");
+const path_1 = require("path");
+const promises_1 = require("fs/promises");
 let StorageService = class StorageService {
     async uploadFile(file) {
-        const appUrl = process.env.APP_URL || "http://localhost:3333";
+        const appUrl = process.env.APP_URL || 'http://localhost:3333';
         return `${appUrl}/uploads/${file.filename}`;
+    }
+    deleteFileByUrl(url) {
+        const filename = url.split('/uploads/')[1];
+        if (!filename)
+            return;
+        const filePath = (0, path_1.join)(process.cwd(), 'uploads', filename);
+        return (0, promises_1.unlink)(filePath).catch(() => { });
     }
 };
 exports.StorageService = StorageService;

@@ -32,6 +32,12 @@ let AdminCakesService = class AdminCakesService {
         });
     }
     async remove(id) {
+        const cake = await this.prisma.cake.findUnique({ where: { id } });
+        if (!cake)
+            throw new common_1.NotFoundException();
+        if (cake.imageUrl) {
+            await this.storage.deleteFileByUrl(cake.imageUrl);
+        }
         await this.prisma.cake.delete({ where: { id } });
         return { ok: true };
     }
