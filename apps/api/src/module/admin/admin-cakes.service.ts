@@ -12,6 +12,7 @@ async create(data: {
   
   name: string;
   priceCents: number;
+  description?: string;
   categoryId?: number;
   image?: Express.Multer.File;
 }) {
@@ -31,7 +32,7 @@ if (!category) {
 
 
 return this.prisma.cake.create({
-data: { name: data.name, priceCents: data.priceCents, imageUrl, categoryId: category.id },
+data: { name: data.name,description: data.description, priceCents: data.priceCents, imageUrl, categoryId: category.id },
 });
 }
 

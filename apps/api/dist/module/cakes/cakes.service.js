@@ -17,7 +17,15 @@ let CakesService = class CakesService {
         this.prisma = prisma;
     }
     async findAll() {
-        return this.prisma.cake.findMany({ include: { category: true } });
+        return this.prisma.cake.findMany({
+            select: {
+                id: true,
+                name: true,
+                description: true, // 🔥 ESSA LINHA RESOLVE TUDO
+                priceCents: true,
+                imageUrl: true,
+            },
+        });
     }
     async findById(id) {
         return this.prisma.cake.findUnique({ where: { id } });

@@ -30,7 +30,7 @@ let AdminCakesService = class AdminCakesService {
             throw new common_1.NotFoundException("Category not found");
         }
         return this.prisma.cake.create({
-            data: { name: data.name, priceCents: data.priceCents, imageUrl, categoryId: category.id },
+            data: { name: data.name, description: data.description, priceCents: data.priceCents, imageUrl, categoryId: category.id },
         });
     }
     async remove(id) {

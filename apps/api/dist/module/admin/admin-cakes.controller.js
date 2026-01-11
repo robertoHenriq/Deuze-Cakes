@@ -27,8 +27,11 @@ let AdminCakesController = class AdminCakesController {
         this.adminService = adminService;
     }
     async create(file, body) {
-        const priceCents = Math.round(Number(body.price) * 100) || Number(body.price) || 0;
-        return this.adminService.create({ name: body.name, priceCents, categoryId: body.categoryId ? Number(body.categoryId) : undefined, image: file });
+        const priceCents = Number(body.priceCents);
+        if (isNaN(priceCents)) {
+            throw new common_1.BadRequestException('Preço inválido');
+        }
+        return this.adminService.create({ name: body.name, description: body.description, priceCents, categoryId: body.categoryId ? Number(body.categoryId) : undefined, image: file });
     }
     async remove(id) {
         return this.adminService.remove(Number(id));

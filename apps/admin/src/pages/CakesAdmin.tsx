@@ -44,7 +44,7 @@ console.log("Bolos vindos da API:", cakes);
       <CakeForm onCreated={loadCakes} />
 
       <h2 className="text-2xl font-bold mb-6 text-gray-800">
-        📋 Bolos Cadastrados
+         Bolos Cadastrados
       </h2>
 
       {error && (
@@ -59,7 +59,7 @@ console.log("Bolos vindos da API:", cakes);
         </div>
       ) : cakes.length === 0 ? (
         <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded text-blue-700">
-          Nenhum bolo cadastrado ainda. Crie o primeiro acima! 🎂
+          Nenhum bolo cadastrado ainda. Crie o primeiro acima! 
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

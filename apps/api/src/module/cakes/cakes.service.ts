@@ -8,7 +8,15 @@ constructor(private prisma: PrismaService) {}
 
 
 async findAll() {
-return this.prisma.cake.findMany({ include: { category: true } });
+  return this.prisma.cake.findMany({
+    select: {
+      id: true,
+      name: true,
+      description: true, // 🔥 ESSA LINHA RESOLVE TUDO
+      priceCents: true,
+      imageUrl: true,
+    },
+  });
 }
 
 
