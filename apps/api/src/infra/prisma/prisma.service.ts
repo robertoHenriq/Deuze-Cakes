@@ -7,6 +7,4 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.$connect();
   }
   
-  // O método enableShutdownHooks foi removido pois o Prisma 5+ 
-  // não suporta mais o evento 'beforeExit' desta forma.
 }

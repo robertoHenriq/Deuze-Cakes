@@ -16,12 +16,12 @@ import { join } from 'path';
       serveRoot: '/uploads',
     }),
       ServeStaticModule.forRoot({
-    // Isso busca a pasta uploads na raiz do projeto da API
+    
     rootPath: join(__dirname, '..', 'uploads'),
       serveRoot: '/uploads',
   }),
     ConfigModule.forRoot({ isGlobal: true }),
-    PrismaModule, // Agora o NestJS sabe de onde vem este módulo
+    PrismaModule, 
     AuthModule,
     UsersModule,
     CakesModule,

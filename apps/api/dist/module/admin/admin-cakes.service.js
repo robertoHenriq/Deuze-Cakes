@@ -23,7 +23,6 @@ let AdminCakesService = class AdminCakesService {
         if (data.image) {
             imageUrl = await this.storage.uploadFile(data.image);
         }
-        // simple: if categoryId not provided, pick first
         const category = await this.prisma.category.findUnique({
             where: { id: data.categoryId },
         });

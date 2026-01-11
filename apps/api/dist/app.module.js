@@ -28,12 +28,11 @@ exports.AppModule = AppModule = __decorate([
                 serveRoot: '/uploads',
             }),
             serve_static_1.ServeStaticModule.forRoot({
-                // Isso busca a pasta uploads na raiz do projeto da API
                 rootPath: (0, path_1.join)(__dirname, '..', 'uploads'),
                 serveRoot: '/uploads',
             }),
             config_1.ConfigModule.forRoot({ isGlobal: true }),
-            prisma_module_1.PrismaModule, // Agora o NestJS sabe de onde vem este módulo
+            prisma_module_1.PrismaModule,
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
             cakes_module_1.CakesModule,

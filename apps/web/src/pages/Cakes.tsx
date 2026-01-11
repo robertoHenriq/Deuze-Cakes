@@ -59,6 +59,7 @@ export function Cakes() {
             <CakeCard
               
               name={cake.name}
+              price={cake.price}
               imageUrl={cake.imageUrl}
             />
           ))
