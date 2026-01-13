@@ -6,8 +6,18 @@
     "paths": {
       "@/*": ["./src/*"],
       "@deuze/shared/*": ["../../packages/shared-types/*"]
-    }
+    },
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  
+  "compilerOptions": {
+    
+  }
+
+
 }
