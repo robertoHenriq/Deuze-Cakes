@@ -1,5 +1,33 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# dependências
+node_modules/
+
+# build
+dist/
+build/
+
+# ambiente
+.env
+.env.local
+.env.production
+.env.development
+
+# logs
+*.log
+
+# banco de dados local
+prisma/dev.db
+
+# IDEs
+.vscode/
+.idea/
+
+# sistema
+.DS_Store
+Thumbs.db
+
+
 # dependencies
 /node_modules
 /.pnp
